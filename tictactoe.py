@@ -1,33 +1,19 @@
-# A simple Tic-Tac-Toe game made in Python, made with TKL keyboards in mind
+# Python Tic-Tac-Toe for TKL keyboards
 
-# Cell definition for empty cells and cells filled by players x and o
-# This can all be simplified significantly, but a bit of flair might be nice.
-cell_1 = cell_2 = cell_3 = cell_4 = cell_5 = cell_6 = cell_7 = cell_8 = cell_9 = '       \n   f   \n       '
-cell_x = '  \\ /  \n   x   \n  / \\  '
-cell_o = '  / \\  \n  (o)  \n  \\ /  '
+'''A simple integration of the classic tic-tac-toe game in Python.
+   Several of these integrations exist, often using the numpad on a full-size
+   keyboard. This version however is made with TKL in mind.'''
 
+# As this implementation uses distinct cells that can be changed, but shouldn't allow for duplicates, a dictionary is appropriate to use here.
+# In this case, every key will initially be linked to a string indicating board position
+boardState = {'1':'1', '2':'2', '3':'3',
+              '4':'4', '5':'5', '6':'6',
+              '7':'7', '8':'8', '9':'9'}
 
-# Cells placed in list for easy access in for loop
-listcells = [cell_1, cell_2, cell_3, cell_4, cell_5, cell_6, cell_7, cell_8, cell_9]
-
-# Quickly make 9 cells with distinct numbers in them
-y=1
-for x in listcells:
-    curnum = str(y)
-    print(curnum)
-    print(x)
-    x=x.replace('f',curnum)
-    print(x)
-    y+=1
-
-# Place all the cells in a dictionary for easy access
-boardState = {'1': cell_1, '2': cell_2, '3': cell_3,
-              '4': cell_4, '5': cell_5, '6': cell_6,
-              '7': cell_7, '8': cell_8, '9': cell_9}
-
-# Let's try printing the boardState
-print(boardState['1'] + '|' + boardState['2'] + '|' + boardState['3'])
-print('-------+-------+-------')
-print(boardState['4'] + '|' + boardState ['5'] + '|' + boardState['6'])
-print('-------+-------+-------')
-print(boardState['7'] + '|' + boardState ['8'] + '|' + boardState['9'])
+# This implementation requires the board to constantly be redrawn, so this will be relegated to a function
+def drawBoard(board):
+    print(board['1'] + '|' + board['2'] + '|' + board['3'])
+    print('-+-+-')
+    print(board['4'] + '|' + board['5'] + '|' + board['6'])
+    print('-+-+-')
+    print(board['7'] + '|' + board['8'] + '|' + board['9'])
