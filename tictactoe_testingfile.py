@@ -30,3 +30,18 @@ print(boardState['4'] + '|' + boardState ['5'] + '|' + boardState['6'])
 print('-------+-------+-------')
 print(boardState['7'] + '|' + boardState ['8'] + '|' + boardState['9'])
 '''
+
+
+# Element replacing code
+reality = 0
+while reality == 0:
+    print("Please choose the element you wish to replace")
+    replaceo = input()
+
+    if replaceo in boardState.keys():
+        reality = 1
+    else:
+        print("This is not a valid element, please choose again")
+
+edito = input("Please enter string to replace element " + replaceo +'\n')
+boardState[replaceo] = edito
