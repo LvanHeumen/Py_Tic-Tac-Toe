@@ -19,3 +19,27 @@ def drawBoard(board):
     print(board['7'] + '|' + board['8'] + '|' + board['9'])
 
 drawBoard(boardState)
+
+player_1 = 'X'
+player_2 = 'O'
+
+activePlayer = player_1
+
+for i in range(1,10):
+    placeAvailable = 0
+    print('Player ' + activePlayer + ', where would you like to place your symbol?')
+
+    while placeAvailable == 0:
+        move = input()
+        if move in boardState.values() and move != (player_1 or player_2) :                                         # Opting for values as the keys don't change, so they can be overwritten in theory
+            placeAvailable = 1
+            boardState[move] = activePlayer
+        else:
+            print('That spot is not available, please select another')
+
+    drawBoard(boardState)
+
+    # Player swap
+    if activePlayer == player_1:
+        activePlayer = player_2
+    else: activePlayer = player_1
