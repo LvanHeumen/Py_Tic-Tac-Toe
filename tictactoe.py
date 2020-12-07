@@ -17,6 +17,13 @@ def wonGame(player,board):
     drawBoard(board)
     print(f'\n******** Player {player} has won, congratulations! ********\n')
 
+# List of winning solutions
+listofWins = [
+              ['1','2','3'],['4','5','6'],['7','8','9'],
+              ['1','4','7'],['2','5','8'],['3','6','9'],
+              ['1','5','9'],['3','5','7']
+             ]
+
 # Define the game itself as a Function
 def playGame():
     # Define playing board
@@ -29,6 +36,9 @@ def playGame():
     # Set active player
     activePlayer = player_1
 
+    # Set winner flag
+    hasWinner = False
+
     for turn in range(1,10):
 
         drawBoard(boardState)
@@ -37,7 +47,7 @@ def playGame():
 
         while placeAvailable == False:
             move = input()
-            if move in boardState.values() and move != (player_1 or player_2):
+            if move in boardState.values() and move not in {player_1,player_2}:
                 placeAvailable = True
                 boardState[move] = activePlayer
             else:
@@ -45,31 +55,14 @@ def playGame():
 
         # Checking win conditions on the 5th turn and thereafter
         # Tic-tac-toe has 8 discrete win states, all will be checked
-        if turn >= 5:
-            if boardState['1'] == boardState['2'] == boardState['3']:
-                wonGame(activePlayer,boardState)
-                break
-            elif boardState['4'] == boardState['5'] == boardState['6']:
-                wonGame(activePlayer,boardState)
-                break
-            elif boardState['7'] == boardState['8'] == boardState['9']:
-                wonGame(activePlayer,boardState)
-                break
-            elif boardState['1'] == boardState['4'] == boardState['7']:
-                wonGame(activePlayer,boardState)
-                break
-            elif boardState['2'] == boardState['5'] == boardState['8']:
-                wonGame(activePlayer,boardState)
-                break
-            elif boardState['3'] == boardState['6'] == boardState['9']:
-                wonGame(activePlayer,boardState)
-                break
-            elif boardState['1'] == boardState['5'] == boardState['9']:
-                wonGame(activePlayer,boardState)
-                break
-            elif boardState['3'] == boardState['5'] == boardState['7']:
-                wonGame(activePlayer,boardState)
-                break
+        if turn >=5:
+            for i in listofWins:
+                if boardState[i[0]] == boardState[i[1]] == boardState[i[2]]:
+                    hasWinner = True
+                    break
+        if hasWinner:
+            wonGame(activePlayer,boardState)
+            break
 
         # If nobody wins after the 9th token, the game is a tie
         if turn == 9:
@@ -83,9 +76,7 @@ def playGame():
     print('Would you like to restart? y/n')
     restartGame = input()
 
-    print()
-
-    if restartGame == 'y' or restartGame == 'Y':
+    if restartGame.lower() in {'y','yes'}:
         print('**** Restarting ****')
         playGame()
 
